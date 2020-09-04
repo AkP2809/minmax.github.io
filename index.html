@@ -162,10 +162,11 @@
 
         let onlySpaces = /^[\s]+$/;
         let check = /^[\d\s]+$/;
+        let constraint = /^[\d( )\d]+$/;
         if (onlySpaces.test(groups)) {
           document.getElementById("errorDataGroup").innerHTML =
             "Invalid Input!!";
-        } else if (check.test(groups)) {
+        } else if (check.test(groups) && constraint.test(groups)) {
           let A = groups.split(" ").map(Number);
           document.getElementById("compDataGroup").innerHTML =
             "Data Group (A): " + A;
