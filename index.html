@@ -159,8 +159,13 @@
     <script type="text/javascript">
       function calculate() {
         let groups = document.getElementById("norm").elements[0].value;
+
+        let onlySpaces = /^[\s]+$/;
         let check = /^[\d\s]+$/;
-        if (check.test(groups)) {
+        if (onlySpaces.test(groups)) {
+          document.getElementById("errorDataGroup").innerHTML =
+            "Invalid Input!!";
+        } else if (check.test(groups)) {
           let A = groups.split(" ").map(Number);
           document.getElementById("compDataGroup").innerHTML =
             "Data Group (A): " + A;
