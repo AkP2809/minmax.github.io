@@ -159,10 +159,11 @@
     <script type="text/javascript">
       function calculate() {
         let groups = document.getElementById("norm").elements[0].value;
+        groups = groups.trim();
 
         let onlySpaces = /^[\s]+$/;
         let check = /^[\d\s]+$/;
-        let constraint = /^(\d+\s?)*\s*$/;
+        let constraint = /^(\d+\s?)*$/;
         if (onlySpaces.test(groups)) {
           document.getElementById("errorDataGroup").innerHTML =
             "Invalid Input!!";
