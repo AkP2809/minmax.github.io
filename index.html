@@ -59,6 +59,7 @@
                   value="0"
                   required
                 />
+                <span id="errorDataGroup" style="color: red"></span>
               </div>
             </div>
             <div class="form-group row">
@@ -158,37 +159,42 @@
     <script type="text/javascript">
       function calculate() {
         let groups = document.getElementById("norm").elements[0].value;
+        let check = /^[\d\s]+$/;
+        if (check.test(groups)) {
+          let A = groups.split(" ").map(Number);
+          document.getElementById("compDataGroup").innerHTML =
+            "Data Group (A): " + A;
 
-        let A = groups.split(" ").map(Number);
-        document.getElementById("compDataGroup").innerHTML =
-          "Data Group (A): " + A;
+          let v = parseInt(document.getElementById("norm").elements[1].value);
+          document.getElementById("valueBefNorm").innerHTML =
+            "Value before normalization (v): " + v;
 
-        let v = parseInt(document.getElementById("norm").elements[1].value);
-        document.getElementById("valueBefNorm").innerHTML =
-          "Value before normalization (v): " + v;
+          let minA = Math.min(...A);
+          let maxA = Math.max(...A);
+          document.getElementById("minOfA").innerHTML =
+            "Min value from A (min(A)): " + minA;
+          document.getElementById("maxOfA").innerHTML =
+            "Max value from A (max(A)): " + maxA;
 
-        let minA = Math.min(...A);
-        let maxA = Math.max(...A);
-        document.getElementById("minOfA").innerHTML =
-          "Min value from A (min(A)): " + minA;
-        document.getElementById("maxOfA").innerHTML =
-          "Max value from A (max(A)): " + maxA;
+          let newMin = parseInt(
+            document.getElementById("norm").elements[2].value
+          );
+          let newMax = parseInt(
+            document.getElementById("norm").elements[3].value
+          );
+          document.getElementById("newMinRange").innerHTML =
+            "Min value of range (new_min(A)): " + newMin;
+          document.getElementById("newMaxRange").innerHTML =
+            "Max value of range (new_max(A)): " + newMax;
 
-        let newMin = parseInt(
-          document.getElementById("norm").elements[2].value
-        );
-        let newMax = parseInt(
-          document.getElementById("norm").elements[3].value
-        );
-        document.getElementById("newMinRange").innerHTML =
-          "Min value of range (new_min(A)): " + newMin;
-        document.getElementById("newMaxRange").innerHTML =
-          "Max value of range (new_max(A)): " + newMax;
+          let vNew = ((v - minA) / (maxA - minA)) * (newMax - newMin) + newMin;
 
-        let vNew = ((v - minA) / (maxA - minA)) * (newMax - newMin) + newMin;
-
-        document.getElementById("valueAftNorm").innerHTML =
-          "Value after normalization (v'): " + vNew;
+          document.getElementById("valueAftNorm").innerHTML =
+            "Value after normalization (v'): " + vNew;
+        } else {
+          document.getElementById("errorDataGroup").innerHTML =
+            "Invalid Input!!";
+        }
       }
     </script>
   </body>
