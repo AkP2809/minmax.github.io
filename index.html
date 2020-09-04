@@ -165,6 +165,7 @@
         let check = /^[\d\s]+$/;
         let constraint = /^(\d+\s?)*$/;
         if (onlySpaces.test(groups)) {
+          document.getElementById("errorDataGroup").style.display = "inline";
           document.getElementById("errorDataGroup").innerHTML =
             "Invalid Input!!";
         } else if (check.test(groups) && constraint.test(groups)) {
@@ -201,6 +202,7 @@
           document.getElementById("valueAftNorm").innerHTML =
             "Value after normalization (v'): " + vNew;
         } else {
+          document.getElementById("errorDataGroup").style.display = "inline";
           document.getElementById("errorDataGroup").innerHTML =
             "Invalid Input!!";
         }
