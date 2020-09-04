@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+
+    <title>Min-Max Normalization</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-sm-6 offset-sm-4">
+          <h2>Min-Max Normalization</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm">
+          <p>
+            In this technique of data normalization, linear transformation is
+            performed on the original data. Minimum and maximum value from data
+            is fetched and each value is replaced according to the following
+            formula,
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <img
+          class="img-fluid"
+          src="images/min-max-normalization1.png"
+          alt="Min-Max Normalization Formula"
+        />
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-sm">
+          <form id="norm" action="#">
+            <div class="form-group row">
+              <label for="dataGroup" class="col-sm-4 col-form-label">
+                Enter entire data group (A):
+              </label>
+              <div class="col-12 col-sm-5">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="dataGroup"
+                  placeholder="Enter space seperated values"
+                  value="0"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="oldDataValue" class="col-sm-4 col-form-label">
+                Enter value of data to be normalized (v):
+              </label>
+              <div class="col-12 col-sm-5">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="oldDataValue"
+                  value="0"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lowerBoundary" class="col-sm-4 col-form-label">
+                Enter lower boundary range (new_min):
+              </label>
+              <div class="col-12 col-sm-5">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="lowerBoundary"
+                  value="0"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="upperBoundary" class="col-sm-4 col-form-label">
+                Enter upper boundary range (new_max):
+              </label>
+              <div class="col-12 col-sm-5">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="upperBoundary"
+                  value="0"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-12 col-sm offset-sm-10">
+                <button
+                  class="btn btn-primary"
+                  type="submit"
+                  onclick="calculate()"
+                >
+                  Calculate
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-sm">
+          <p id="compDataGroup"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm">
+          <p id="valueBefNorm"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm">
+          <p id="minOfA"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm">
+          <p id="maxOfA"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm">
+          <p id="newMinRange"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm">
+          <p id="newMaxRange"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm">
+          <p id="valueAftNorm"></p>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      function calculate() {
+        let groups = document.getElementById("norm").elements[0].value;
+
+        let A = groups.split(" ").map(Number);
+        document.getElementById("compDataGroup").innerHTML =
+          "Data Group (A): " + A;
+
+        let v = parseInt(document.getElementById("norm").elements[1].value);
+        document.getElementById("valueBefNorm").innerHTML =
+          "Value before normalization (v): " + v;
+
+        let minA = Math.min(...A);
+        let maxA = Math.max(...A);
+        document.getElementById("minOfA").innerHTML =
+          "Min value from A (min(A)): " + minA;
+        document.getElementById("maxOfA").innerHTML =
+          "Max value from A (max(A)): " + maxA;
+
+        let newMin = parseInt(
+          document.getElementById("norm").elements[2].value
+        );
+        let newMax = parseInt(
+          document.getElementById("norm").elements[3].value
+        );
+        document.getElementById("newMinRange").innerHTML =
+          "Min value of range (new_min(A)): " + newMin;
+        document.getElementById("newMaxRange").innerHTML =
+          "Max value of range (new_max(A)): " + newMax;
+
+        let vNew = ((v - minA) / (maxA - minA)) * (newMax - newMin) + newMin;
+
+        document.getElementById("valueAftNorm").innerHTML =
+          "Value after normalization (v'): " + vNew;
+      }
+    </script>
+  </body>
+</html>
