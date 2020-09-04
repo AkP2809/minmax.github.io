@@ -162,7 +162,7 @@
 
         let onlySpaces = /^[\s]+$/;
         let check = /^[\d\s]+$/;
-        let constraint = /^[\d( )\d]+$/;
+        let constraint = /^(\d+\s?)*\s*$/;
         if (onlySpaces.test(groups)) {
           document.getElementById("errorDataGroup").innerHTML =
             "Invalid Input!!";
