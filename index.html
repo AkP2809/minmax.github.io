@@ -168,6 +168,8 @@
           document.getElementById("errorDataGroup").innerHTML =
             "Invalid Input!!";
         } else if (check.test(groups) && constraint.test(groups)) {
+          document.getElementById("errorDataGroup").style.visibility = "hidden";
+
           let A = groups.split(" ").map(Number);
           document.getElementById("compDataGroup").innerHTML =
             "Data Group (A): " + A;
